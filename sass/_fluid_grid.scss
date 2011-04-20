@@ -1,0 +1,91 @@
+// A fluid grid SASS partial.
+// ------------------------------------------------------------------------ //
+
+$min_grid_width: 60em !default;
+$max_grid_width: 80em !default;
+$grid_columns: 16 !default;
+$grid_col_gutter: 10px !default;
+
+$grid_col_width: 100% / $grid_columns;
+
+
+@mixin grid_container {
+  position: relative;
+  min-width: $min_grid_width;
+  max-width: $max_grid_width;
+  margin: 0 auto;
+  padding: 0 $grid_col_gutter;
+  overflow: hidden;
+}
+
+
+@mixin row {
+  position: relative;
+  z-index: 1;
+  float: left;
+  width: 100%;
+}
+
+
+@mixin col($n: 1) {
+  float: left;
+  @include span($n);
+}
+
+
+@mixin span($n: 1, $context: 100) {
+  width: ($n * $grid_col_width);
+}
+
+
+@mixin prepend($n: 1) {
+  margin-left: $grid_col_width * $n;
+}
+
+
+@mixin append($n: 1) {
+  margin-right: $grid_col_width * $n;
+}
+
+
+@mixin gutter {
+  min-height: 16px;
+  padding: $grid_col_gutter;
+  overflow: hidden;
+}
+
+
+@for $i from 1 through $grid_columns {
+  .span-#{$i} {
+    @include col($i);
+  }
+  
+  .prepend-#{$i} {
+    @include prepend($i);
+  }
+  
+  .append-#{$i} {
+    @include append($i);
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  padding: 0;
+  background: #fff;
+}
+
+.overlay .span-1 {
+  width: $grid_col_width;
+  height: 100%;
+  overflow: hidden;
+}
+
+.overlay .gutter {
+  height: 100%;
+  margin: 0 $grid_col_gutter;
+  background-color: rgba(255,0,0,0.07);
+}
