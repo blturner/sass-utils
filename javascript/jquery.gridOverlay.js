@@ -1,18 +1,10 @@
-// What this script should do:
-// 1) Apply a column grid over the layout.
-// 2) Dynamically resize the grid.
-// 3) Provide a way of turning the grid on and off because it must lay on top of
-//    a design.
-
 (function($) {
-  $.fn.fluidOverlay = function(options) {
+  $.fn.grid = function(options) {
     var defaults = {
       background: null,
-      baseline_height: null,
       columns: 12,
       grid_col_gutter: "0px"
     };
-    
     var options = $.extend(defaults, options);
     
     
@@ -33,18 +25,6 @@
       return width + "%";
     }
     
-    
-    // Add the baseline background image to the body element.
-    if (options.background) {
-      $("body").css("background-image", "url(" + options.background + ")");
-    } else {
-      if (options.baseline_height) {
-        $("body")
-          .css("background-image", "-webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(5%, rgba(0, 0, 0, 0.15)), color-stop(5%, rgba(0, 0, 0, 0)))")
-          .css("background-image", "-moz-linear-gradient(bottom, rgba(0, 0, 0, 0.15) 5%, rgba(0, 0, 0, 0) 5%)")
-          .css("background-size", "100% " + options.baseline_height + ", auto");
-      }
-    }
     
     return this.each(function() {
       // `obj` is the root +grid_container mixin element or a +row mixin element.
