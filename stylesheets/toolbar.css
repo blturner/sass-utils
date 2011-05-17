@@ -1,0 +1,46 @@
+#grid_toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10000;
+  width: 250px;
+  height: 100%:;;
+  padding: 10px;
+  background: rgba(255,255,255,0.50);
+  border-left: solid 1px #eee;
+}
+
+#grid_toolbar ol {
+  overflow: hidden;
+  list-style: none;
+}
+
+#grid_toolbar form li {
+  float: left;
+}
+
+#grid_toolbar label {
+  font-family: "Helvetica";
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  padding: 0;
+  z-index: 1000;
+}
+
+.overlay .unit {
+  float: left;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.overlay .unit .gutter {
+  height: 100%;
+  background-color: rgba(255,0,0,0.10);
+}

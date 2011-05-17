@@ -71,26 +71,10 @@
       });
       
       
-      $(obj).find(".overlay").css("position", "absolute")
-        .css("top", "0")
-        .css("padding", "0")
-        .css("z-index", "1000");
-      
-      
       $(obj).find(".unit")
-        .css("float", "left")
-        .css("height", "100%")
         .css("width", columnWidth(1, options.columns))
         .css("border-left", "solid " + options.grid_col_gutter + " rgba(255,255,255,0.15)")
-        .css("border-right", "solid " + options.grid_col_gutter + " rgba(255,255,255,0.15)")
-        .css("-webkit-box-sizing", "border-box")
-        .css("-moz-box-sizing", "border-box")
-        .css("box-sizing", "border-box");
-        
-      
-      $(obj).find(".unit .gutter")
-        .css("height", "100%")
-        .css("background-color", "rgba(255,0,0,0.10)");
+        .css("border-right", "solid " + options.grid_col_gutter + " rgba(255,255,255,0.15)");
       
       
       // Recalculate grid overlay widths as the window resizes.
