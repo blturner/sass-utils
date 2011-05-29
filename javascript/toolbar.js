@@ -32,7 +32,6 @@ var gridToolbar = window.gridToolbar || {};
     $.each(data, function(i, field) {
       var selector = field.value;
       
-      console.log(selector);
       $(selector).grid(window.gridDefaults);
       that.updateSelectorList(selector, window.gridDefaults);
     });
@@ -48,8 +47,10 @@ var gridToolbar = window.gridToolbar || {};
       options[data[i].name] = val.value;
     });
     
-    $("#page").find(".overlay").remove();
-    $("#page").grid(options);
+    var selector = $(options["selector"]);
+    
+    selector.find(".overlay").remove();
+    selector.grid(options);
     
     return false;
   };
@@ -60,7 +61,7 @@ var gridToolbar = window.gridToolbar || {};
         selector = $(item).find("code").text();
         
     $(item).remove();
-    $(selector).find(".overlay").remove();
+    $(selector).find("> .overlay").remove();
   };
   
   this.updateSelectorList = function(selector, options) {
