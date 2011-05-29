@@ -7,20 +7,23 @@ var gridToolbar = window.gridToolbar || {};
   // var defaults = this.gridDefaults;
   
   this.init = function() {
-    var toolbar = document.createElement("div"),
-        form    = document.createElement("form"),
-        fields  = $('<ol><li><label>Selector</label><input name="selector" type="text"></li><li><input type="submit" value="Apply"></li></ol>');
+    var gridForm = ich.gridForm();
     
-    toolbar.id = "grid_toolbar";
-    form.action = "test.html";
+    $("body").append(gridForm);
+    $("#grid_toolbar form").bind("submit", this.addSelector);
     
-    $("body").append(toolbar);
-    $(toolbar).wrapInner(form);
-    $(form).wrapInner(fields);
-    
-    $(form).after('<ol id="selector_list"></ol>');
-    
-    $(form).bind("submit", this.addSelector);
+    // setup any pre-defined grids
+    if (window.grids) {
+      $.each(window.grids, function(selector, options) {
+        $(selector).grid(options);
+        
+        var options = {
+          "columns": window.grids[selector]["columns"],
+          "gridColGutter": window.grids[selector]["gridColGutter"]
+        }
+        that.updateSelectorList(selector, options);
+      });
+    }
   };
   
   this.addSelector = function() {
@@ -29,9 +32,24 @@ var gridToolbar = window.gridToolbar || {};
     $.each(data, function(i, field) {
       var selector = field.value;
       
-      $(selector).fluidOverlay(window.gridDefaults);
-      that.updateSelectorList(selector);
+      console.log(selector);
+      $(selector).grid(window.gridDefaults);
+      that.updateSelectorList(selector, window.gridDefaults);
     });
+    
+    return false;
+  };
+  
+  this.updateSelector = function() {
+    var data = $(this).serializeArray(),
+        options = {};
+    
+    $.each(data, function(i, val) {
+      options[data[i].name] = val.value;
+    });
+    
+    $("#page").find(".overlay").remove();
+    $("#page").grid(options);
     
     return false;
   };
@@ -45,21 +63,32 @@ var gridToolbar = window.gridToolbar || {};
     $(selector).find(".overlay").remove();
   };
   
-  this.updateSelectorList = function(selector) {
+  this.updateSelectorList = function(selector, options) {
+    var panel = {
+      selector: selector
+    };
+    
+    $.each(options, function(key, val) {
+      panel[key] = val;
+    });
+    
     var list = $("#selector_list"),
-        item = $("<li><input type=\"checkbox\" checked=\"checked\"><code>" + selector + "</code><a href=\"#\">Remove</a></li>");
+        form = ich.updateForm(panel);
+        
+    list.append(form);
     
-    $(item).find("a").bind("click", this.removeSelector);
-    $(item).find(":checkbox").bind("click", this.toggleGrid);
-    
-    // $(list).wrapInner(item);
-    list.append(item);
+    form.find("form").bind("submit", this.updateSelector);
+    form.find("a").bind("click", this.removeSelector);
+    form.find(":checkbox").bind("click", this.toggleGrid);
   };
   
   this.toggleGrid = function(event) {
     var elem = event.target,
-        selector = $(elem).parent().find("code").text();
-    
+        selector = $(elem).parent().find("code").text()
+        overlay = $(selector).find("> .overlay"),
+        overlayCopy = $(overlay).clone(),
+        overlayParent = $(overlay).parent();
+        
     return false;
   };
 }).apply(gridToolbar);
