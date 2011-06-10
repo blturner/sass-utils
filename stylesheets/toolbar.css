@@ -1,28 +1,57 @@
 #grid_toolbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   z-index: 10000;
-  width: 250px;
+  width: 200px;
   height: 100%:;;
-  padding: 10px;
-  background: rgba(255,255,255,0.50);
-  border-left: solid 1px #eee;
+  background: rgba(0,0,0,0.750);
+  color: #fff;
+}
+
+#grid_toolbar a {
+  color: #999;
 }
 
 #grid_toolbar ol {
+  padding: 10px;
+  border-bottom: solid 1px #eee;
   overflow: hidden;
   list-style: none;
 }
 
-#grid_toolbar form li {
-  float: left;
+#grid_toolbar li {
+  margin: 5px 0;
 }
 
 #grid_toolbar label {
+  display: block;
   font-family: "Helvetica";
   font-size: 12px;
-  font-weight: bold;
+}
+
+#selector_list > li {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+#close {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: #ddd;
+  text-indent: -9999px;
+}
+
+#close.collapsed {
+  position: absolute;
+  left: -32px;
+}
+
+code {
+  font-family: "Andale Mono";
+  font-size: 12px;
 }
 
 .overlay {
